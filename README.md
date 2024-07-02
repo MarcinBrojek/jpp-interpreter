@@ -1,23 +1,35 @@
-#### JĘZYK
+# jpp-interpreter
 
-Język imperatywny, w składni opartej o podzbiór języków C/C++. Jest on lekko zmodyfikowany, tak by mógł spełniać założone funkcjonalności. Program składa się z deklaracji zmiennych/funkcji. Uruchomniony program wykona zadeklarowaną funkcję main. Wiecej informacji o składni w deklaracji języka: Marcin_Brojek.md.
+#### LANGUAGE
 
-Dostarczony interpreter spełnia zawarte założenia z deklaracji za wyjątkiem niepoprawnej metody get dla tupli.
+An imperative language with syntax based on a subset of C/C++. It has been slightly modified to fulfill specific functionalities. Programs consist of variable/function declarations. The executed program will invoke the declared main function. More syntax details can be found in the language specification: Marcin_Brojek.md.
 
-#### OGÓLNY OPIS ROZWIĄZANIA
+The provided interpreter adheres to the specifications outlined in the declaration, except for the incorrect handling of the get method for tuples.
 
-Rozwiązanie składa się dwóch głównych modułów: **TypeChecker** i **Interpreter**, oba korzystają jednocześnie z monad: Reader, State, Except. W przypadku TypeChecker'a w środowisku i stanie są przechowywane informacje dotyczące typów, natomiast w Interpreter'ze są to wartości.
+#### OVERVIEW OF THE SOLUTION
 
-W obrębie bloku - ciągu instrukcji mogą pojawiać się w dowolnych momentach deklaracje zmiennych, funkcji jak i procedur, dlatego oba moduły powyżej aplikują kolejne instrukcje do tworzonych na nowo, kolejnych środowisk.
+The solution comprises two main modules: **TypeChecker** and **Interpreter**, both utilizing monads concurrently: Reader, State, Except. In the TypeChecker module, environment and state store type information, while in the Interpreter module, they store values.
 
-#### URUCHAMIANIE
+Within a block - a sequence of instructions - variable declarations, functions, and procedures can appear at any position. Therefore, both modules above apply subsequent instructions to newly created, successive environments.
 
-Kompilacja przy użyciu polecenia **make** utworzy katalog **build** i plik wykonywalny **interpreter**, który można uruchamiać poleceniem **./interpreter program**.
+#### EXECUTION
 
-#### PRZYKŁADY
+Compiling using the **make** command will create a `build` directory and an executable `interpreter` file, which can be run with the command 
+```
+./interpreter program
+```
 
-W katalogu **bad**, pliki są postaci **XX-YY-name-of-test.cpp**, gdzie **XX** równe **00** oznacza błąd w składni, **10** błędy wykonania - wychwycone dynamicznie, natomiast **12** błędy podczas statycznego typowania. 
+#### EXAMPLES
 
-Nazwy w katalogu **good** ograniczają tylko do **YY-name-of-test.cpp** i również tutaj **YY** to numer funkcjonalności z listy Język Imperatywny. Za wyjątkiem **99**, które wskazują na inne, rozbudowane przykłady programów.
+In the `bad` directory, files are named `XX-YY-name-of-test.cpp`, where **XX** equals **00** signifies syntax errors, **10** denotes runtime errors caught dynamically, and **12** indicates errors during static type checking.
 
-Aby uruchomić wszystkie przykłady w zależności od katalogu, można użyć polecenia: **make good_run** lub **make bad_run**.
+Files in the `good` directory are named `YY-name-of-test.cpp`, where **YY** corresponds to a functionality number from the Imperative Language list. Except for **99**, which points to other comprehensive program examples.
+
+To run all examples based on the directory, you can use the command 
+```
+make good_run
+``` 
+or 
+```
+make bad_run
+```
